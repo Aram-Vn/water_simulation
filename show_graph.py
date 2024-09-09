@@ -7,11 +7,10 @@ import signal
 import sys
 from typing import List, Optional
 
-# Define paths
 cpp_file: str = 'water_simulation.cpp'
 executable_path: str = './water_simulation'
 
-# Compile the C++ program
+# Compile the program
 def compile_cpp(cpp_file: str, executable_path: str) -> bool:
     compile_command: str = f'g++ -o {executable_path} {cpp_file}'
     print(f"Compiling {cpp_file}...")
@@ -22,13 +21,14 @@ def compile_cpp(cpp_file: str, executable_path: str) -> bool:
     print("Compilation succeeded.")
     return True
 
-# Callback function to handle window close event
+# for handling window close event
 def on_close(event: Optional[plt.FigureManagerBase]) -> None:
     print("The plot window has been closed.")
     plt.ioff()  # Turn off interactive mode
     plt.close()  # Close the plot window
     sys.exit(0)
 
+# for ctrl + c
 def signal_handler(sig: int, frame: Optional[object]) -> None:
     print("Interrupt received, stopping...")
     plt.ioff()  # Turn off interactive mode
@@ -36,7 +36,6 @@ def signal_handler(sig: int, frame: Optional[object]) -> None:
     sys.exit(sig)
 
 def run_and_plot(executable_path: str) -> None:
-    # Initialize lists to store the time, water height, and water input rate for plotting
     times: List[float] = []
     heights: List[float] = []
     input_rates: List[float] = []
@@ -54,7 +53,6 @@ def run_and_plot(executable_path: str) -> None:
     input_rate_text: plt.Text = ax.text(0.05, 0.95, '', transform=ax.transAxes, fontsize=12,
                                         verticalalignment='top')
 
-    # Initialize target water height
     target_water_height: Optional[float] = None
 
     # Connect the close event to the callback function
@@ -65,15 +63,13 @@ def run_and_plot(executable_path: str) -> None:
     proc: subprocess.Popen = subprocess.Popen(executable_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     try:
         for output_line in proc.stdout:
-            # Read target water height from the C++ program output
             if "targetWaterHeight:" in output_line:
                 target_water_height = float(output_line.split(": ")[1].strip())
-                # Add target water height line to the plot
+                # Adding target water height line to the plot
                 ax.axhline(y=target_water_height, color='b', linestyle='--', label='Target Water Height')
                 ax.legend()
                 continue
 
-            # Process other output lines
             if "Current time:" in output_line:
                 parts: List[str] = output_line.split(", ")
                 time_str: str = parts[0].split(": ")[1].split()[0]
@@ -95,11 +91,10 @@ def run_and_plot(executable_path: str) -> None:
                 ax.relim()
                 ax.autoscale_view()
 
-                # Update the text with the current water input rate
                 input_rate_text.set_text(f'Water Input Rate: {current_rate:.2f} m³/s')
 
                 plt.draw()
-                plt.pause(0.01)  # Pause briefly to allow the plot to update
+                plt.pause(0.01)  # Pause to allow the plot to update
 
     except KeyboardInterrupt:
         print("Process interrupted by user.")
@@ -108,8 +103,8 @@ def run_and_plot(executable_path: str) -> None:
         # Terminate the subprocess
         proc.terminate()
         proc.wait()
-        plt.ioff()  # Turn off interactive mode
-        plt.show(block=True)  # Block until the plot window is closed
+        plt.ioff()  
+        plt.show(block=True)  
 
 # Compile and run
 if compile_cpp(cpp_file, executable_path):
