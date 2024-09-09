@@ -8,7 +8,6 @@ int main()
     // Constants
     const double waterDensity        = 1000.0;   // in kg/m^3
     const double gravityAcceleration = 9.81;     // in m/s^2
-    const double targetWaterHeight   = 7500.0;   // in meters
     const double maxPoolHeight       = 9000.0;   // in meters
     const double outletConstant      = 0.000001; // Outlet constant (adjusted for simulation)
     const double initialWaterHeight  = 1000.0;   // Initial water height
@@ -22,6 +21,17 @@ int main()
     double waterInputRate     = 1.0; // in m^3/s
     double waterOutputRate    = 0.0;
     int    iterationCount     = 0;
+
+    double targetWaterHeight = 7500.0; // in meters
+
+    std::cin >> targetWaterHeight;
+
+    // check input
+    if (std::cin.fail() || targetWaterHeight < 0 || targetWaterHeight > maxPoolHeight)
+    {
+        std::cerr << "Invalid input. Using default target height of 7500 meters." << std::endl;
+        targetWaterHeight = 7500.0; // Reset to default
+    }
 
     std::cout << "targetWaterHeight: " << targetWaterHeight << std::endl;
 

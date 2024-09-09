@@ -9,7 +9,14 @@ from typing import List, Optional
 
 cpp_file: str = 'water_simulation.cpp'
 executable_path: str = './water_simulation'
+target_height: float = 7500.0  # Default value
 
+# Prompt user for target height
+try:
+    target_height = float(input("Enter the target water height (in meters): "))
+except ValueError:
+    print("Invalid input. Using default target height of 7500 meters.")
+    
 # Compile the program
 def compile_cpp(cpp_file: str, executable_path: str) -> bool:
     compile_command: str = f'g++ -o {executable_path} {cpp_file}'
@@ -35,7 +42,7 @@ def signal_handler(sig: int, frame: Optional[object]) -> None:
     plt.close()  # Close the plot window
     sys.exit(sig)
 
-def run_and_plot(executable_path: str) -> None:
+def run_and_plot(executable_path: str, target_height: float) -> None:
     times: List[float] = []
     heights: List[float] = []
     input_rates: List[float] = []
@@ -44,7 +51,7 @@ def run_and_plot(executable_path: str) -> None:
     fig: plt.Figure
     ax: plt.Axes
     fig, ax = plt.subplots()
-    line_height, = ax.plot([], [], 'r-', label='Water Height')  # Initialize with empty data
+    line_height, = ax.plot([], [], 'r-', label='Water Height')
     ax.set_xlabel('Time (seconds)')
     ax.set_ylabel('Water Height (meters)')
     ax.set_title('Water Height Over Time')
@@ -53,22 +60,32 @@ def run_and_plot(executable_path: str) -> None:
     input_rate_text: plt.Text = ax.text(0.05, 0.95, '', transform=ax.transAxes, fontsize=12,
                                         verticalalignment='top')
 
-    target_water_height: Optional[float] = None
+    # Adding target water height line to the plot
+    ax.axhline(y=target_height, color='b', linestyle='--', label='Target Water Height')
+    ax.legend()
 
     # Connect the close event to the callback function
     fig.canvas.mpl_connect('close_event', on_close)
 
     signal.signal(signal.SIGINT, signal_handler)
 
-    proc: subprocess.Popen = subprocess.Popen(executable_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    # Run the C++ executable and pass the target height
+    proc: subprocess.Popen = subprocess.Popen(
+        executable_path,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+
     try:
+        # Pass the target height to the water_simulation.cpp program
+        proc.stdin.write(f"{target_height}\n")
+        proc.stdin.flush()
+
         for output_line in proc.stdout:
             if "targetWaterHeight:" in output_line:
-                target_water_height = float(output_line.split(": ")[1].strip())
-                # Adding target water height line to the plot
-                ax.axhline(y=target_water_height, color='b', linestyle='--', label='Target Water Height')
-                ax.legend()
-                continue
+                continue  # Skip the line setting the target height
 
             if "Current time:" in output_line:
                 parts: List[str] = output_line.split(", ")
@@ -108,6 +125,6 @@ def run_and_plot(executable_path: str) -> None:
 
 # Compile and run
 if compile_cpp(cpp_file, executable_path):
-    run_and_plot(executable_path)
+    run_and_plot(executable_path, target_height)
 else:
     print("Compilation failed. Please check the error messages above.")
