@@ -1,12 +1,20 @@
 # Water Simulation Project
 
+- [Preview](#preview)
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Setup Instructions](#setup-instructions)
 - [Usage](#usage)
 - [Functionality](#functionality)
 
+# Preview
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7e7612a8-904f-4145-9601-b6a54b481766" width="500" height="auto" alt="sudoku">
+</div>
+
 # Overview
+
 This project simulates the dynamics of water height in a pool over time, adjusting the water input rate to reach a target water height. It includes a C++ program that performs the simulation and a Python script that compiles the C++ program, runs it, and visualizes the results using Matplotlib.
 
 # Requirements
@@ -29,12 +37,14 @@ water_simulation
 It's recommended to use a virtual environment to manage your Python dependencies. Here's how to set one up:
 
 On Linux/MacOS:
+
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
 On Windows:
+
 ```bash
 python -m venv venv
 venv\Scripts\activate
