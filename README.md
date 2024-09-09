@@ -26,3 +26,9 @@ python water_simulation.py
 
 - *Close the Plot Window:* The plot window can be closed manually, and the script will handle the event gracefully.
 - *Interrupt Execution:* You can stop the script by pressing `Ctrl + C`.
+
+# Functionality
+
+- The C++ program simulates water height in a pool based on predefined constants and dynamically adjusts the water input rate to maintain a target height.
+
+- The Python script compiles the C++ code if needed, executes the compiled program, reads its output, and plots the water height and input rate in real-time using `matplotlib`.
