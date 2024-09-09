@@ -1,0 +1,7 @@
+.cache/
+.venv/
+.vscode/
+build/
+venv
+water_simulation
+.clang-format
