@@ -9,11 +9,14 @@ from typing import List, Optional
 
 cpp_file: str = 'water_simulation.cpp'
 executable_path: str = './water_simulation'
-target_height: float = 7500.0  # Default value
+target_height: float = 7500.0
+maxPoolHeight: float = 9000.0
 
 # Prompt user for target height
 try:
-    target_height = float(input("Enter the target water height (in meters): "))
+    target_height = float(input("Enter the target water height (in meters from 0 to 9000): "))
+    if (target_height > maxPoolHeight):
+         print("target height is to high set it to default 7500 meters.")
 except ValueError:
     print("Invalid input. Using default target height of 7500 meters.")
     

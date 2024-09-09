@@ -1,5 +1,12 @@
 # Water Simulation Project
 
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Setup Instructions](#setup-instructions)
+- [Usage](#usage)
+- [Functionality](#functionality)
+
+# Overview
 This project simulates the dynamics of water height in a pool over time, adjusting the water input rate to reach a target water height. It includes a C++ program that performs the simulation and a Python script that compiles the C++ program, runs it, and visualizes the results using Matplotlib.
 
 # Requirements
