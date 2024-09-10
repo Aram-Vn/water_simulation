@@ -15,7 +15,22 @@
 
 # Overview
 
-This project simulates the dynamics of water height in a pool over time, adjusting the water input rate to reach a target water height. It includes a C++ program that performs the simulation and a Python script that compiles the C++ program, runs it, and visualizes the results using Matplotlib.
+This project simulates the dynamics of water height in a pool over time, adjusting the water input rate to reach a target water height. The simulation is based on **Torricelli's Law**, which describes the speed of fluid flowing out of an orifice under the force of gravity. 
+It includes a C++ program that performs the simulation and a Python script that compiles the C++ program, runs it, and visualizes the results using Matplotlib.
+
+`Torricelli's Law` is applied in this project to calculate the water output rate, using the formula:
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/218d8648-2ab5-4c72-ae9c-1c08d276719c" width="500" height="auto" alt="sudoku">
+</div>
+
+Where:
+
+- `v` is the velocity of water flowing out,
+- `A` is the cross-sectional area of the outlet,
+- `g` is the gravitational acceleration (9.81 m/s²),
+- `h` is the current water height in the pool.
+
 
 # Requirements
 
