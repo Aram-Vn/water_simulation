@@ -62,7 +62,7 @@ pip install -r requirements.txt
 Before running the simulation, ensure the C++ program is compiled. You can do this manually or let the Python script handle it.
 
 ```bash
-g++ main.cpp src/water_simulation.cpp -o water_simulation     
+❯ g++ main.cpp src/water_simulation.cpp -o water_simulation_program
 ./water_simulation # run
 ```
 
