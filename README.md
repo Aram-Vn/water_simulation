@@ -26,10 +26,10 @@ It includes a C++ program that performs the simulation and a Python script that 
 
 Where:
 
-- `v` is the velocity of water flowing out,
-- `A` is the cross-sectional area of the outlet,
+- `Q` is the flow rate of water (m^3/s),
+- `A` is the cross-sectional area of the outlet(m^2),
 - `g` is the gravitational acceleration (9.81 m/s²),
-- `h` is the current water height in the pool.
+- `h` is the current water height in the pool (m).
 
 
 # Requirements
