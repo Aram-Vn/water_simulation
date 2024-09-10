@@ -29,7 +29,7 @@ This project simulates the dynamics of water height in a pool over time, adjusti
 
 ```bash
 git clone https://github.com/yourusername/water-simulation.git
-water_simulation
+cd water_simulation
 ```
 
 2.Create and Activate a Virtual Environment
