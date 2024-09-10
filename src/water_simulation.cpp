@@ -1,62 +1,56 @@
-#include <chrono>
-#include <cmath>
-#include <iostream>
-#include <thread>
+#include "water_simulation.h"
 
-int main()
+double water_simulation(const double inputTargetWaterHeight)
 {
     // Constants
-    const double waterDensity        = 1000.0;   // in kg/m^3
-    const double gravityAcceleration = 9.81;     // in m/s^2
-    const double maxPoolHeight       = 9000.0;   // in meters
-    const double outletConstant      = 0.000001; // Outlet constant (adjusted for simulation)
-    const double initialWaterHeight  = 1000.0;   // Initial water height
-    const double timeStep            = 1.0;      // in seconds
-    const double maxSimulationTime   = 25000.0;  // in seconds
-    const double heightTolerance     = 0.01;     // Tolerance for height stabilization
-    const int    sleepInterval       = 100;      // Sleep every sleepInterval iterations
+    const double waterDensity        = 1000.0;  // in kg/m^3
+    const double gravityAcceleration = 9.81;    // in m/s^2
+    const double maxPoolHeight       = 9000.0;  // in meters
+    const double outletArea          = 0.1;     // Cross-sectional area of the outlet in m^2
+    const double initialWaterHeight  = 1000.0;  // Initial water height
+    const double timeStep            = 1.0;     // in seconds
+    const double maxSimulationTime   = 15000.0; // in seconds
+    const double heightTolerance     = 0.01;    // Tolerance for height stabilization
+    const int    sleepInterval       = 100;     // Sleep every sleepInterval iterations
 
-    double currentWaterHeight = initialWaterHeight; // Start from a non-zero initial height
+    double currentWaterHeight = initialWaterHeight;
     double simulationTime     = 0.0;
     double waterInputRate     = 1.0; // in m^3/s
     double waterOutputRate    = 0.0;
     int    iterationCount     = 0;
 
-    double targetWaterHeight = 7500.0; // in meters
+    double targetWaterHeight = inputTargetWaterHeight;
 
-    std::cin >> targetWaterHeight;
-
-    // check input
-    if (std::cin.fail() || targetWaterHeight < 0 || targetWaterHeight > maxPoolHeight)
+    // Check input
+    if (targetWaterHeight < 0 || targetWaterHeight > maxPoolHeight)
     {
         std::cerr << "Invalid input. Using default target height of 7500 meters." << std::endl;
-        targetWaterHeight = 7500.0; // Reset to default
+        targetWaterHeight = 7500.0;
     }
 
     std::cout << "targetWaterHeight: " << targetWaterHeight << std::endl;
 
     while (maxSimulationTime > simulationTime)
     {
-        // Calculate the water output rate based on the current height
-        waterOutputRate = outletConstant * waterDensity * gravityAcceleration * currentWaterHeight;
+        // Torricelli's law
+        waterOutputRate = outletArea * std::sqrt(2 * gravityAcceleration * currentWaterHeight);
 
-        // Adjust water input rate to maintain the target height
+        // Adjust water input rate
         if (currentWaterHeight < targetWaterHeight)
         {
-            waterInputRate += 1.0; // Increase input if height is below target
+            waterInputRate += 1.0;
         }
         else if (currentWaterHeight > targetWaterHeight)
         {
-            waterInputRate -= 1.0; // Decrease input if height is above target
+            waterInputRate -= 1.0;
         }
 
-        // Ensure water input rate does not become negative
+        // prevent from negative
         if (waterInputRate < 0)
         {
             waterInputRate = 0;
         }
 
-        // Update the current water height based on input and output rates
         currentWaterHeight += (waterInputRate - waterOutputRate) * timeStep;
 
         // Ensure the height does not exceed the max pool height or drop below zero
@@ -96,8 +90,8 @@ int main()
     }
     else
     {
-        std::cout << "Final required water input rate to maintain 5000 meters height: " << waterInputRate << " m^3/s"
-                  << std::endl;
+        std::cout << "Final required water input rate to maintain " << targetWaterHeight
+                  << " meters height: " << waterInputRate << " m^3/s" << std::endl;
     }
 
     return 0;

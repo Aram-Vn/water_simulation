@@ -7,23 +7,29 @@ import signal
 import sys
 from typing import List, Optional
 
-cpp_file: str = 'water_simulation.cpp'
+main_cpp: str = 'main.cpp'
+water_simulation_cpp: str = 'src/water_simulation.cpp'
 executable_path: str = './water_simulation'
+
+
 target_height: float = 7500.0
 maxPoolHeight: float = 9000.0
 
 # Prompt user for target height
 try:
     target_height = float(input("Enter the target water height (in meters from 0 to 9000): "))
-    if (target_height > maxPoolHeight):
-         print("target height is to high set it to default 7500 meters.")
+    if (target_height > maxPoolHeight or target_height < 0):
+        target_height = 7500.0;
+        print("target height is to high set it to default 7500 meters.")
 except ValueError:
     print("Invalid input. Using default target height of 7500 meters.")
     
 # Compile the program
-def compile_cpp(cpp_file: str, executable_path: str) -> bool:
-    compile_command: str = f'g++ -o {executable_path} {cpp_file}'
-    print(f"Compiling {cpp_file}...")
+def compile_cpp(main_cpp: str, executable_path: str, water_simulation_cpp: str) -> bool:
+    # g++ main.cpp src/water_simulation.cpp -o water_simulation_program
+
+    compile_command: str = f'g++ {main_cpp} src/water_simulation.cpp -o {executable_path}'
+    print(f"Compiling {main_cpp}...")
     result: int = os.system(compile_command)
     if result != 0:
         print("Compilation failed.")
@@ -34,15 +40,15 @@ def compile_cpp(cpp_file: str, executable_path: str) -> bool:
 # for handling window close event
 def on_close(event: Optional[plt.FigureManagerBase]) -> None:
     print("The plot window has been closed.")
-    plt.ioff()  # Turn off interactive mode
-    plt.close()  # Close the plot window
+    plt.ioff()  
+    plt.close()  
     sys.exit(0)
 
 # for ctrl + c
 def signal_handler(sig: int, frame: Optional[object]) -> None:
     print("Interrupt received, stopping...")
-    plt.ioff()  # Turn off interactive mode
-    plt.close()  # Close the plot window
+    plt.ioff()  
+    plt.close()  
     sys.exit(sig)
 
 def run_and_plot(executable_path: str, target_height: float) -> None:
@@ -127,7 +133,7 @@ def run_and_plot(executable_path: str, target_height: float) -> None:
         plt.show(block=True)  
 
 # Compile and run
-if compile_cpp(cpp_file, executable_path):
+if compile_cpp(main_cpp, executable_path, water_simulation_cpp):
     run_and_plot(executable_path, target_height)
 else:
     print("Compilation failed. Please check the error messages above.")
