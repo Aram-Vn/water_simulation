@@ -16,12 +16,17 @@ maxPoolHeight: float = 9000.0
 
 # Prompt user for target height
 try:
-    target_height = float(input("Enter the target water height (in meters from 0 to 9000): "))
+    target_height: float = float(input("Enter the target water height (in meters from 0 to 9000): "))
     if (target_height > maxPoolHeight or target_height < 0):
         target_height = 7500.0;
         print("target height is to high set it to default 7500 meters.")
 except ValueError:
     print("Invalid input. Using default target height of 7500 meters.")
+    
+try:
+    target_water_height: float = float(input("Enter the water input change per iteration: "))
+except ValueError:
+    print("Invalid input. Using default input change per iteration 0.7.")
     
 # Compile the program
 def compile_cpp(main_cpp: str, executable_path: str, water_simulation_cpp: str) -> bool:
@@ -49,7 +54,7 @@ def signal_handler(sig: int, frame: Optional[object]) -> None:
     plt.close()  
     sys.exit(sig)
 
-def run_and_plot(executable_path: str, target_height: float) -> None:
+def run_and_plot(executable_path: str, target_height: float, target_water_height: float) -> None:
     times: List[float] = []
     heights: List[float] = []
     input_rates: List[float] = []
@@ -88,6 +93,9 @@ def run_and_plot(executable_path: str, target_height: float) -> None:
     try:
         # Pass the target height to the water_simulation.cpp program
         proc.stdin.write(f"{target_height}\n")
+        proc.stdin.flush()
+        
+        proc.stdin.write(f"{target_water_height}\n")
         proc.stdin.flush()
 
         for output_line in proc.stdout:
@@ -134,6 +142,6 @@ def run_and_plot(executable_path: str, target_height: float) -> None:
 
 # Compile and run
 if compile_cpp(main_cpp, executable_path, water_simulation_cpp):
-    run_and_plot(executable_path, target_height)
+    run_and_plot(executable_path, target_height, target_water_height)
 else:
     print("Compilation failed. Please check the error messages above.")

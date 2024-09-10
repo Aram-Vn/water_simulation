@@ -1,17 +1,17 @@
 #include "water_simulation.h"
 
-double water_simulation(const double inputTargetWaterHeight)
+double water_simulation(const double inputTargetWaterHeight, const double waterInputChange)
 {
     // Constants
-    const double waterDensity        = 1000.0;  // in kg/m^3
-    const double gravityAcceleration = 9.81;    // in m/s^2
-    const double maxPoolHeight       = 9000.0;  // in meters
-    const double outletArea          = 0.1;     // Cross-sectional area of the outlet in m^2
-    const double initialWaterHeight  = 1000.0;  // Initial water height
-    const double timeStep            = 1.0;     // in seconds
-    const double maxSimulationTime   = 15000.0; // in seconds
-    const double heightTolerance     = 0.01;    // Tolerance for height stabilization
-    const int    sleepInterval       = 100;     // Sleep every sleepInterval iterations
+    const double waterDensity        = 1000.0; // in kg/m^3
+    const double gravityAcceleration = 9.81;   // in m/s^2
+    const double maxPoolHeight       = 9000.0; // in meters
+    const double outletArea          = 0.1;    // Cross-sectional area of the outlet in m^2
+    const double initialWaterHeight  = 1000.0; // Initial water height
+    const double timeStep            = 1.0;    // in seconds
+    const double maxSimulationTime   = 2700.0; // in seconds
+    const double heightTolerance     = 0.01;   // Tolerance for height stabilization
+    const int    sleepInterval       = 100;    // Sleep every sleepInterval iterations
 
     double currentWaterHeight = initialWaterHeight;
     double simulationTime     = 0.0;
@@ -38,11 +38,11 @@ double water_simulation(const double inputTargetWaterHeight)
         // Adjust water input rate
         if (currentWaterHeight < targetWaterHeight)
         {
-            waterInputRate += 1.0;
+            waterInputRate += waterInputChange;
         }
         else if (currentWaterHeight > targetWaterHeight)
         {
-            waterInputRate -= 1.0;
+            waterInputRate -= waterInputChange;
         }
 
         // prevent from negative
@@ -89,7 +89,7 @@ double water_simulation(const double inputTargetWaterHeight)
                   << " meters with water input rate: " << waterInputRate << " m^3/s" << std::endl;
         return waterInputRate;
     }
-    
+
     std::cout << "Final required water input rate to maintain " << targetWaterHeight
               << " meters height: " << waterInputRate << " m^3/s" << std::endl;
     return waterInputRate;
