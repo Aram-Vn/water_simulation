@@ -12,5 +12,7 @@ int main()
         targetWaterHeight = 7500.0;
     }
 
-    std::cout << "result is: " << water_simulation(targetWaterHeight) << "m^3/s" << std::endl;
+    double resultWaterInputRate = water_simulation(targetWaterHeight);
+    std::cout << "\n\n***********************************************" << std::endl;
+    std::cout << "result is: " << resultWaterInputRate << " m^3/s" << std::endl;
 }

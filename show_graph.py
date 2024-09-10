@@ -11,7 +11,6 @@ main_cpp: str = 'main.cpp'
 water_simulation_cpp: str = 'src/water_simulation.cpp'
 executable_path: str = './water_simulation'
 
-
 target_height: float = 7500.0
 maxPoolHeight: float = 9000.0
 
@@ -26,9 +25,8 @@ except ValueError:
     
 # Compile the program
 def compile_cpp(main_cpp: str, executable_path: str, water_simulation_cpp: str) -> bool:
-    # g++ main.cpp src/water_simulation.cpp -o water_simulation_program
 
-    compile_command: str = f'g++ {main_cpp} src/water_simulation.cpp -o {executable_path}'
+    compile_command: str = f'g++ {main_cpp} {water_simulation_cpp} -o {executable_path}'
     print(f"Compiling {main_cpp}...")
     result: int = os.system(compile_command)
     if result != 0:
@@ -127,10 +125,12 @@ def run_and_plot(executable_path: str, target_height: float) -> None:
 
     finally:
         # Terminate the subprocess
+        print(f"Final water input rate: {current_rate:.2f} m³/s")
         proc.terminate()
         proc.wait()
         plt.ioff()  
         plt.show(block=True)  
+  
 
 # Compile and run
 if compile_cpp(main_cpp, executable_path, water_simulation_cpp):

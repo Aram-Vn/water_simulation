@@ -87,12 +87,10 @@ double water_simulation(const double inputTargetWaterHeight)
     {
         std::cout << "Max simulation time reached. Final water height: " << currentWaterHeight
                   << " meters with water input rate: " << waterInputRate << " m^3/s" << std::endl;
+        return waterInputRate;
     }
-    else
-    {
-        std::cout << "Final required water input rate to maintain " << targetWaterHeight
-                  << " meters height: " << waterInputRate << " m^3/s" << std::endl;
-    }
-
-    return 0;
+    
+    std::cout << "Final required water input rate to maintain " << targetWaterHeight
+              << " meters height: " << waterInputRate << " m^3/s" << std::endl;
+    return waterInputRate;
 }
