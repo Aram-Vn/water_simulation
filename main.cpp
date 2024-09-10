@@ -19,7 +19,7 @@ int main()
     if (std::cin.fail())
     {
         std::cerr << "Invalid input";
-        targetWaterHeight = 0.7;
+        targetWaterHeight = 0.09;
     }
 
     double resultWaterInputRate = water_simulation(targetWaterHeight, waterInputChange);

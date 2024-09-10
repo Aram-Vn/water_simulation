@@ -14,7 +14,6 @@ executable_path: str = './water_simulation'
 target_height: float = 7500.0
 maxPoolHeight: float = 9000.0
 
-# Prompt user for target height
 try:
     target_height: float = float(input("Enter the target water height (in meters from 0 to 9000): "))
     if (target_height > maxPoolHeight or target_height < 0):
@@ -26,7 +25,7 @@ except ValueError:
 try:
     target_water_height: float = float(input("Enter the water input change per iteration: "))
 except ValueError:
-    print("Invalid input. Using default input change per iteration 0.7.")
+    print("Invalid input. Using default input change per iteration 0.09.")
     
 # Compile the program
 def compile_cpp(main_cpp: str, executable_path: str, water_simulation_cpp: str) -> bool:
@@ -91,7 +90,7 @@ def run_and_plot(executable_path: str, target_height: float, target_water_height
     )
 
     try:
-        # Pass the target height to the water_simulation.cpp program
+        # Pass the target variables to cpp
         proc.stdin.write(f"{target_height}\n")
         proc.stdin.flush()
         
@@ -100,7 +99,7 @@ def run_and_plot(executable_path: str, target_height: float, target_water_height
 
         for output_line in proc.stdout:
             if "targetWaterHeight:" in output_line:
-                continue  # Skip the line setting the target height
+                continue
 
             if "Current time:" in output_line:
                 parts: List[str] = output_line.split(", ")
@@ -132,7 +131,6 @@ def run_and_plot(executable_path: str, target_height: float, target_water_height
         print("Process interrupted by user.")
 
     finally:
-        # Terminate the subprocess
         print(f"Final water input rate: {current_rate:.2f} m³/s")
         proc.terminate()
         proc.wait()
