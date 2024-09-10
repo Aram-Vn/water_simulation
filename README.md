@@ -28,7 +28,7 @@ This project simulates the dynamics of water height in a pool over time, adjusti
 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/water-simulation.git
+git clone git@github.com:Aram-Vn/water_simulation.git
 cd water_simulation
 ```
 
