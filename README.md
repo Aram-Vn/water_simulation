@@ -70,7 +70,7 @@ g++ -o water_simulation water_simulation.cpp
 Execute the Python script to compile the C++ program (if not already compiled), run the simulation, and visualize the results:
 
 ```bash
-python water_simulation.py
+python show_graph.py
 ```
 
 # Usage
@@ -80,7 +80,7 @@ python water_simulation.py
 Execute the Python script to compile the C++ program (if not already compiled), run the simulation, and visualize the results:
 
 ```bash
-python water_simulation.py
+python show_graph.py
 ```
 
 2. Interact with the Plot
