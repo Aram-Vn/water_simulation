@@ -15,7 +15,7 @@ double water_simulation(const double inputTargetWaterHeight, const double waterI
 
     double currentWaterHeight = initialWaterHeight;
     double simulationTime     = 0.0;
-    double waterInputRate     = 1.0; // in m^3/s
+    double waterInputRate     = 0.7; // in m^3/s
     double waterOutputRate    = 0.0;
     int    iterationCount     = 0;
 
