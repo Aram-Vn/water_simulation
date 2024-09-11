@@ -5,3 +5,7 @@ build/
 venv
 water_simulation
 .clang-format
+water_simulation_program
+os
+subprocess
+sys
