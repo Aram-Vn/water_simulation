@@ -1,5 +1,6 @@
 water_simulation
 venv/
+.venv/
 
 build/
 compile_commands.json
