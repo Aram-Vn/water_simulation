@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/aram/dev/water_simulation/build",
+  "command": "/usr/bin/clang++ -I/home/aram/dev/water_simulation/include -g -std=gnu++20 -o CMakeFiles/water_simulation2.dir/main.cpp.o -c /home/aram/dev/water_simulation/main.cpp",
+  "file": "/home/aram/dev/water_simulation/main.cpp",
+  "output": "CMakeFiles/water_simulation2.dir/main.cpp.o"
+},
+{
+  "directory": "/home/aram/dev/water_simulation/build",
+  "command": "/usr/bin/clang++ -I/home/aram/dev/water_simulation/include -g -std=gnu++20 -o CMakeFiles/water_simulation2.dir/src/PIDController.cpp.o -c /home/aram/dev/water_simulation/src/PIDController.cpp",
+  "file": "/home/aram/dev/water_simulation/src/PIDController.cpp",
+  "output": "CMakeFiles/water_simulation2.dir/src/PIDController.cpp.o"
+},
+{
+  "directory": "/home/aram/dev/water_simulation/build",
+  "command": "/usr/bin/clang++ -I/home/aram/dev/water_simulation/include -g -std=gnu++20 -o CMakeFiles/water_simulation2.dir/src/water_simulation.cpp.o -c /home/aram/dev/water_simulation/src/water_simulation.cpp",
+  "file": "/home/aram/dev/water_simulation/src/water_simulation.cpp",
+  "output": "CMakeFiles/water_simulation2.dir/src/water_simulation.cpp.o"
+}
+]

@@ -11,30 +11,23 @@ main_cpp: str = 'main.cpp'
 water_simulation_cpp: str = 'src/water_simulation.cpp'
 executable_path: str = './water_simulation'
 
-target_height: float = 7500.0
-maxPoolHeight: float = 9000.0
-water_input_rate_change: float = 0.7
+target_height: float = 750.0
+maxPoolHeight: float = 900.0
 
 
 try:
-    target_height: float = float(input("Enter the target water height (in meters from 0 to 9000): "))
+    target_height: float = float(input(f'Enter the target water height (in meters from 0 to {maxPoolHeight}): '))
     if (target_height > maxPoolHeight or target_height < 0):
-        target_height = 7500.0;
+        target_height = 750.0;
         print(f'target height is to high set it to default {target_height} meters.')
 except ValueError:
-    target_height = 7500.0;
+    target_height = 750.0;
     print(f'Invalid input. Using default target height of {target_height} meters.')
-    
-try:
-    water_input_rate_change: float = float(input("Enter the water input change per iteration: "))
-except ValueError:
-    water_input_rate_change: float = 0.7
-    print(f'Invalid input. Using default input change per iteration {water_input_rate_change}')
     
 # Compile the program
 def compile_cpp(main_cpp: str, executable_path: str, water_simulation_cpp: str) -> bool:
 
-    compile_command: str = f'g++ {main_cpp} {water_simulation_cpp} -o {executable_path}'
+    compile_command: str = f'g++ {main_cpp} {water_simulation_cpp} src/PIDController.cpp -o {executable_path}'
     print(f"Compiling {main_cpp}...")
     result: int = os.system(compile_command)
     if result != 0:
@@ -57,7 +50,7 @@ def signal_handler(sig: int, frame: Optional[object]) -> None:
     plt.close()  
     sys.exit(sig)
 
-def run_and_plot(executable_path: str, target_height: float, water_input_rate_change: float) -> None:
+def run_and_plot(executable_path: str, target_height: float) -> None:
     times: List[float] = []
     heights: List[float] = []
     input_rates: List[float] = []
@@ -74,9 +67,6 @@ def run_and_plot(executable_path: str, target_height: float, water_input_rate_ch
     # Initialize a text object for the water input rate
     input_rate_text: plt.Text = ax.text(0.05, 0.95, '', transform=ax.transAxes, fontsize=12,
                                         verticalalignment='top')
-
-    ax.text(0.05, 0.90, f'Initial Water Input Rate Change: {water_input_rate_change:.2f} m³/s',
-                                          transform=ax.transAxes, fontsize=12, verticalalignment='top')
 
     # Adding target water height line to the plot
     ax.axhline(y=target_height, color='b', linestyle='--', label='Target Water Height')
@@ -101,9 +91,6 @@ def run_and_plot(executable_path: str, target_height: float, water_input_rate_ch
         proc.stdin.write(f"{target_height}\n")
         proc.stdin.flush()
         
-        proc.stdin.write(f"{water_input_rate_change}\n")
-        proc.stdin.flush()
-
         for output_line in proc.stdout:
             if "targetWaterHeight:" in output_line:
                 continue
@@ -147,6 +134,6 @@ def run_and_plot(executable_path: str, target_height: float, water_input_rate_ch
 
 # Compile and run
 if compile_cpp(main_cpp, executable_path, water_simulation_cpp):
-    run_and_plot(executable_path, target_height, water_input_rate_change)
+    run_and_plot(executable_path, target_height)
 else:
     print("Compilation failed. Please check the error messages above.")

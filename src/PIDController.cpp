@@ -1,0 +1,56 @@
+
+#include "../include/PIDController.h"
+
+#include <chrono>
+#include <cmath>
+#include <iostream>
+#include <thread>
+
+namespace my {
+    PIDController::PIDController(double kp, double ki, double kd, double minInputRate, double maxInputRate)
+        : m_kp{ kp },
+          m_ki{ ki },
+          m_kd{ kd },
+          m_previousError{},
+          m_integral{},
+          m_minInputRate{ minInputRate },
+          m_maxInputRate{ maxInputRate }
+
+    {
+    }
+
+    double PIDController::compute(double setpoint, double measured, double dt)
+    {
+        double error = setpoint - measured;
+
+        m_integral += error * dt * m_ki;
+
+        if (m_integral > m_maxInputRate)
+        {
+            m_integral = m_maxInputRate;
+        }
+
+        if (m_integral < m_minInputRate)
+        {
+            m_integral = m_minInputRate;
+        }
+
+        double derivative = (error - m_previousError) / dt;
+
+        double output = error * m_kp + m_integral + derivative * m_kd;
+
+        m_previousError = error;
+
+        if (output > m_maxInputRate)
+        {
+            output = m_maxInputRate;
+        }
+
+        if (output < m_minInputRate)
+        {
+            output = m_minInputRate;
+        }
+
+        return output;
+    }
+} // namespace my
