@@ -1,4 +1,0 @@
-/home/aram/dev/water_simulation/build/CMakeFiles/water_simulation2.dir
-/home/aram/dev/water_simulation/build/CMakeFiles/copy_compile_commands.dir
-/home/aram/dev/water_simulation/build/CMakeFiles/edit_cache.dir
-/home/aram/dev/water_simulation/build/CMakeFiles/rebuild_cache.dir

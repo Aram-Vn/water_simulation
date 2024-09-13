@@ -1,6 +1,0 @@
-# ninja log v6
-3	23	1726219446173405653	/home/aram/dev/water_simulation/compile_commands.json	184e7618eb0f9557
-2	1680	1726219446153405653	CMakeFiles/water_simulation2.dir/main.cpp.o	a83079e642747c65
-3	1724	1726219446153405653	CMakeFiles/water_simulation2.dir/src/water_simulation.cpp.o	a25dc80a8851a339
-2	1744	1726219446153405653	CMakeFiles/water_simulation2.dir/src/PIDController.cpp.o	980b3180e5f88282
-1744	1832	1726219447896739019	water_simulation2	e366ed6aba31f31e
