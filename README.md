@@ -5,6 +5,7 @@
 - [Requirements](#requirements)
 - [Setup Instructions](#setup-instructions)
 - [PID Controller Tuning Parameters](#pid-controller-tuning-parameters)
+  - [Tuning Guidelines](#tuning-guidelines)
 - [Usage](#usage)
 - [Functionality](#functionality)
 
@@ -15,7 +16,6 @@
   <img src="https://github.com/user-attachments/assets/316a1d95-4713-493a-885a-df8fc1b3c3fa" width="32%" alt="Screenshot 2">
   <img src="https://github.com/user-attachments/assets/248bfe3d-5a07-48d5-97d4-982290982d80" width="32%" alt="Screenshot 3">
 </div>
-
 
 # Overview
 
@@ -111,7 +111,7 @@ python show_graph.py
 
 - `Derivative Gain (kd)`: This parameter predicts the future trend of the error based on its rate of change. It provides damping to the system and can help reduce overshoot and oscillations. However, too high a value can make the system overly sensitive to noise.
 
-# Tuning Guidelines
+## Tuning Guidelines
 
 1. Start with kp: Begin by setting ki and kd to zero and adjust kp to get a reasonable response. Aim for a balance between responsiveness and stability.
 
