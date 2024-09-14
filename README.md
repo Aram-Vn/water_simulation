@@ -4,6 +4,7 @@
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Setup Instructions](#setup-instructions)
+- [PID Controller Tuning Parameters](#pid-controller-tuning-parameters)
 - [Usage](#usage)
 - [Functionality](#functionality)
 
@@ -99,6 +100,27 @@ Execute the Python script to compile the C++ program (if not already compiled), 
 ```bash
 python show_graph.py
 ```
+
+# PID Controller Tuning Parameters
+
+**The PID controller** used in this simulation has three key parameters:
+
+- `Proportional Gain (kp)`: This parameter determines the reaction to the current error. Increasing kp will make the controller respond more aggressively to the error, but setting it too high can cause the system to oscillate or become unstable.
+
+- `Integral Gain (ki)`: This parameter adjusts the response based on the accumulated error over time. It helps eliminate steady-state error by integrating the error term, but excessive ki can lead to an unstable system with oscillations.
+
+- `Derivative Gain (kd)`: This parameter predicts the future trend of the error based on its rate of change. It provides damping to the system and can help reduce overshoot and oscillations. However, too high a value can make the system overly sensitive to noise.
+
+# Tuning Guidelines
+
+1. Start with kp: Begin by setting ki and kd to zero and adjust kp to get a reasonable response. Aim for a balance between responsiveness and stability.
+
+2. Add ki Slowly: Gradually increase ki to reduce any steady-state error. Be cautious of introducing too much integral action, as it can lead to oscillations.
+
+3. Tune kd: Finally, adjust kd to minimize overshoot and improve the stability of the response.
+
+4. Adjusting Parameters
+You can modify the PID parameters in the C++ code to see their effect on the simulation. Refer to the source files for parameter definitions and consider running multiple simulations to find the optimal settings for your specific scenario.
 
 # Usage
 
