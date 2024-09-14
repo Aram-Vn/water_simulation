@@ -52,7 +52,7 @@ Where:
 1. Clone the Repository
 
 ```bash
-git clone git@github.com:Aram-Vn/water_simulation.git
+git clone git@github.com:Aram-Vn/water_simulation_PID_controller.git
 cd water_simulation
 ```
 
