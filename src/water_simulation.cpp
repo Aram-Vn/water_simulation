@@ -50,12 +50,13 @@ double water_simulation(const double inputTargetWaterHeight)
 
         currentWaterHeight += (waterInputRate - waterOutputRate) * timeStep;
 
-        // Ensure the height does not exceed the max pool height or drop below zero
+        // Ensure the height does not exceed the max pool height
         if (currentWaterHeight > maxPoolHeight)
         {
             currentWaterHeight = maxPoolHeight;
         }
 
+        // or drop below zero
         if (currentWaterHeight < 0)
         {
             currentWaterHeight = 0;

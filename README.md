@@ -1,4 +1,4 @@
-# Water Simulation Project
+# Water Simulation with PID Controller
 
 - [Preview](#preview)
 - [Overview](#overview)
@@ -9,16 +9,45 @@
 
 # Preview
 
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/7e7612a8-904f-4145-9601-b6a54b481766" width="500" height="auto" alt="sudoku">
+<div class="image-row">
+  <img src="https://github.com/user-attachments/assets/5ed1c79a-ed21-42be-b15e-7be55c82a487" alt="Screenshot 1">
+  <img src="https://github.com/user-attachments/assets/316a1d95-4713-493a-885a-df8fc1b3c3fa" alt="Screenshot 2">
+  <img src="https://github.com/user-attachments/assets/248bfe3d-5a07-48d5-97d4-982290982d80" alt="Screenshot 3">
 </div>
+
+<style>
+  .image-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Add spacing between images */
+  }
+
+  .image-row img {
+    width: 32%;
+  }
+
+  @media (max-width: 768px) {
+    .image-row img {
+      width: 100%;
+    }
+  }
+</style>
+
+
 
 # Overview
 
-This project simulates the dynamics of water height in a pool over time, adjusting the water input rate to reach a target water height. The simulation is based on **Torricelli's Law**, which describes the speed of fluid flowing out of an orifice under the force of gravity. 
-It includes a C++ program that performs the simulation and a Python script that compiles the C++ program, runs it, and visualizes the results using Matplotlib.
+This project simulates the dynamics of water height in a pool over time, adjusting the water input rate to reach a target water height. The simulation is based on **Torricelli's Law**, which describes the speed of fluid flowing out of an orifice under the force of gravity.
 
-`Torricelli's Law` is applied in this project to calculate the water output rate, using the formula:
+Additionally, a **PID Controller** is used to dynamically adjust the water input rate to maintain the desired water height over time, ensuring that the system responds effectively to disturbances or changes in the water height.
+
+The project consists of:
+
+- **A C++ program** that simulates the water height and implements the `PID controller`.
+
+- **A Python script** that compiles the C++ program, runs it, and visualizes the results using matplotlib.
+Torricelli's Law is applied in this project to calculate the water output rate, using the formula:
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/218d8648-2ab5-4c72-ae9c-1c08d276719c" width="500" height="auto" alt="sudoku">
@@ -77,7 +106,10 @@ pip install -r requirements.txt
 Before running the simulation, ensure the C++ program is compiled. You can do this manually or let the Python script handle it.
 
 ```bash
-❯ g++ main.cpp src/water_simulation.cpp -o water_simulation_program
+mkdir build
+cd build 
+cmake ..
+cmake --build .
 ./water_simulation # run
 ```
 

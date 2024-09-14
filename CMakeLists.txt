@@ -1,18 +1,18 @@
 
 cmake_minimum_required(VERSION 3.10)
 
-project("water_simulation2")
+project("water_simulation")
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
 file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 file(GLOB_RECURSE HDR_FILES "src/*.h")
 
-add_executable("water_simulation2" main.cpp  ${SRC_FILES} ${HDR_FILES})
+add_executable("water_simulation" main.cpp  ${SRC_FILES} ${HDR_FILES})
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-target_include_directories("water_simulation2" PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories("water_simulation" PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 
 # target_compile_options("water_simulation2" PRIVATE 
@@ -45,7 +45,7 @@ target_include_directories("water_simulation2" PRIVATE ${CMAKE_CURRENT_SOURCE_DI
 #     -fsanitize=undefined
 # )
 
-target_compile_features("water_simulation2" PRIVATE cxx_std_20)
+target_compile_features("water_simulation" PRIVATE cxx_std_20)
 
 # If not Visual Studio generator, copy compile_commands.json
 if(NOT CMAKE_GENERATOR MATCHES "Visual Studio")
