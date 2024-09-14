@@ -9,31 +9,11 @@
 
 # Preview
 
-<div class="image-row">
-  <img src="https://github.com/user-attachments/assets/5ed1c79a-ed21-42be-b15e-7be55c82a487" alt="Screenshot 1">
-  <img src="https://github.com/user-attachments/assets/316a1d95-4713-493a-885a-df8fc1b3c3fa" alt="Screenshot 2">
-  <img src="https://github.com/user-attachments/assets/248bfe3d-5a07-48d5-97d4-982290982d80" alt="Screenshot 3">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/5ed1c79a-ed21-42be-b15e-7be55c82a487" width="32%" alt="Screenshot 1">
+  <img src="https://github.com/user-attachments/assets/316a1d95-4713-493a-885a-df8fc1b3c3fa" width="32%" alt="Screenshot 2">
+  <img src="https://github.com/user-attachments/assets/248bfe3d-5a07-48d5-97d4-982290982d80" width="32%" alt="Screenshot 3">
 </div>
-
-<style>
-  .image-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px; /* Add spacing between images */
-  }
-
-  .image-row img {
-    width: 32%;
-  }
-
-  @media (max-width: 768px) {
-    .image-row img {
-      width: 100%;
-    }
-  }
-</style>
-
 
 
 # Overview
