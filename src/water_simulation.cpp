@@ -8,13 +8,16 @@
 namespace my {
     WaterSimulation* WaterSimulation::instance = nullptr;
 
-    WaterSimulation::WaterSimulation(double inputTargetWaterHeight)
-        : m_currentWaterHeight(Constants::InitialWaterHeight),
+    WaterSimulation::WaterSimulation(double TargetWaterHeight, double inputKp, double inputKi, double inputKd)
+        : Kp_(inputKd),
+          Ki_(inputKi),
+          Kd_(inputKd),
+          m_currentWaterHeight(Constants::InitialWaterHeight),
           m_simulationTime(0.0),
           m_waterInputRate(0.7),
           m_waterOutputRate(0.0),
-          m_targetWaterHeight(inputTargetWaterHeight),
-          pid(1.0, 0.1, 0.01, 0.0, computeMaxInputRate())
+          m_targetWaterHeight(TargetWaterHeight),
+          pid(Kp_, Ki_, Kd_, 0.0, computeMaxInputRate())
     {
         if (m_targetWaterHeight < 0 || m_targetWaterHeight > Constants::MaxPoolHeight)
         {
@@ -23,23 +26,24 @@ namespace my {
         }
     }
 
-    WaterSimulation* WaterSimulation::getInstance(double inputTargetWaterHeight)
+    WaterSimulation* WaterSimulation::getInstance(double TargetWaterHeight, double inputKp, double inputKi,
+                                                  double inputKd)
     {
         if (instance == nullptr)
         {
-            instance = new WaterSimulation(inputTargetWaterHeight);
+            instance = new WaterSimulation(TargetWaterHeight, inputKp, inputKi, inputKd);
         }
         return instance;
     }
 
-    void WaterSimulation::runSimulation()
+    double WaterSimulation::runSimulation()
     {
         std::cout << "m_targetWaterHeight: " << m_targetWaterHeight << std::endl;
 
         while (Constants::MaxSimulationTime > m_simulationTime)
         {
-            m_waterOutputRate  = computeWaterOutputRate();
-            m_waterInputRate = pid.compute(m_targetWaterHeight, m_currentWaterHeight, Constants::TimeStep);
+            m_waterOutputRate = computeWaterOutputRate();
+            m_waterInputRate  = pid.compute(m_targetWaterHeight, m_currentWaterHeight, Constants::TimeStep);
 
             if (m_waterInputRate < 0)
             {
@@ -68,6 +72,8 @@ namespace my {
 
         std::cout << "Max simulation time reached. Final water height: " << m_currentWaterHeight
                   << " meters with water input rate: " << m_waterInputRate << " m^3/s" << std::endl;
+
+        return m_waterInputRate;
     }
 
 } // namespace my

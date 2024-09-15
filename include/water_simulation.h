@@ -21,7 +21,7 @@ namespace my {
     class WaterSimulation
     {
     private:
-        WaterSimulation(double inputTargetWaterHeight); // Private constructor
+        WaterSimulation(double inputTargetWaterHeight, double inputKp, double inputKi, double inputKd);
 
     private:
         inline double computeMaxInputRate()
@@ -35,19 +35,22 @@ namespace my {
             return Constants::OutletArea * std::sqrt(2 * Constants::GravityAcceleration * m_currentWaterHeight);
         }
 
-        // Singleton instance
         static WaterSimulation* instance;
 
     public:
-        WaterSimulation(const WaterSimulation&)            = delete; // Delete copy constructor
-        WaterSimulation& operator=(const WaterSimulation&) = delete; // Delete assignment operator
+        WaterSimulation(const WaterSimulation&)            = delete;
+        WaterSimulation& operator=(const WaterSimulation&) = delete;
 
-        // Static method to access the single instance of the class
-        static WaterSimulation* getInstance(double inputTargetWaterHeight);
-
-        void runSimulation();
+    public:
+        static WaterSimulation* getInstance(double TargetWaterHeight, double inputKp = 1.0, double inputKi = 0.1,
+                                            double inputKd = 0.01);
+        double                  runSimulation();
 
     private:
+        const double Kp_;
+        const double Ki_;
+        const double Kd_;
+
         double m_currentWaterHeight;
         double m_simulationTime;
         double m_waterInputRate;

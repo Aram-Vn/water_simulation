@@ -14,6 +14,13 @@ int main()
         targetWaterHeight = 150.0;
     }
 
-    my::WaterSimulation* sim = my::WaterSimulation::getInstance(targetWaterHeight);
-    sim->runSimulation();
+    double kp = 1.0;
+    double ki = 0.1;
+    double kd = 0.01;
+
+    my::WaterSimulation* sim = my::WaterSimulation::getInstance(targetWaterHeight, kp, ki, kd);
+
+    double finalRate = sim->runSimulation();
+
+    std::cout << "final output rate: " << finalRate << std::endl;
 }
