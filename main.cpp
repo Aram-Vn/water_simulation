@@ -1,4 +1,3 @@
-
 #include "include/water_simulation.h"
 #include <iostream>
 

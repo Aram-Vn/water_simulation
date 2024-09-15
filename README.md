@@ -8,6 +8,7 @@
   - [Tuning Guidelines](#tuning-guidelines)
 - [Usage](#usage)
 - [Functionality](#functionality)
+- [Classes](#classes)
 
 # Preview
 
@@ -142,3 +143,26 @@ python show_graph.py
 - The C++ program simulates water height in a pool based on predefined constants and dynamically adjusts the water input rate to maintain a target height.
 
 - The Python script compiles the C++ code if needed, executes the compiled program, reads its output, and plots the water height and input rate in real-time using `matplotlib`.
+
+# Classes
+
+`Classes`
+
+- `The WaterSimulation class` is responsible for simulating the dynamics of water height in a pool. It uses a PID controller to dynamically adjust the water input rate to reach and maintain a target water height.
+
+- **Methods**: 
+  - `static WaterSimulation* getInstance(double inputTargetWaterHeight, double kp, double ki, double kd)`
+
+    Retrieves the singleton instance of WaterSimulation. If the instance does not exist, it cols private constructor which initializes a WaterSimulation instance with a specified target water height and PID parameters (proportional gain **kp**, integral gain **ki**, and derivative gain **kd**).
+
+    - Parameters
+      - `inputTargetWaterHeight`: The desired water height to be maintained.
+      - `kp`: Proportional gain for the PID controller. default value is 1.0
+      - `ki`: Integral gain for the PID controller. default value is 0.1
+      - `kd`: Derivative gain for the PID controller. default value is 0.01
+
+    - **Returns**: A pointer to the singleton WaterSimulation instance.
+
+  - `void runSimulation()`
+    - Executes the water simulation. It continuously adjusts the water input rate using the PID controller and outputs the current simulation state (time, water height, and input rate) to the console.
+    - The simulation runs until the maximum simulation time is reached.
