@@ -14,7 +14,6 @@ int main()
         targetWaterHeight = 150.0;
     }
 
-    double resultWaterInputRate = water_simulation(targetWaterHeight);
-    std::cout << "\n\n***********************************************" << std::endl;
-    std::cout << "result is: " << resultWaterInputRate << " m^3/s" << std::endl;
+    my::WaterSimulation* sim = my::WaterSimulation::getInstance(targetWaterHeight);
+    sim->runSimulation();
 }
