@@ -146,20 +146,22 @@ python show_graph.py
 
 # Classes
 
+# Classes
+
 `Classes`
 
 - `The WaterSimulation class` is responsible for simulating the dynamics of water height in a pool. It uses a PID controller to dynamically adjust the water input rate to reach and maintain a target water height.
 
 - **Methods**: 
-  - `static WaterSimulation* getInstance(double inputTargetWaterHeight, double kp, double ki, double kd)`
+  - `static WaterSimulation* getInstance(double TargetWaterHeight, double inputKp = 1.0, double inputKi = 0.1, double inputKd = 0.01);`
 
-    Retrieves the singleton instance of WaterSimulation. If the instance does not exist, it cols private constructor which initializes a WaterSimulation instance with a specified target water height and PID parameters (proportional gain **kp**, integral gain **ki**, and derivative gain **kd**).
+    Retrieves the singleton instance of WaterSimulation. If the instance does not exist, it cols private constructor which initializes a WaterSimulation instance with a specified target water height and PID parameters (proportional gain **Kp**, integral gain **Ki**, and derivative gain **Kd**).
 
     - Parameters
       - `inputTargetWaterHeight`: The desired water height to be maintained.
-      - `kp`: Proportional gain for the PID controller. default value is 1.0
-      - `ki`: Integral gain for the PID controller. default value is 0.1
-      - `kd`: Derivative gain for the PID controller. default value is 0.01
+      - `inputKp`: Proportional gain for the PID controller. default value is 1.0
+      - `inputKi`: Integral gain for the PID controller. default value is 0.1
+      - `inputKd`: Derivative gain for the PID controller. default value is 0.01
 
     - **Returns**: A pointer to the singleton WaterSimulation instance.
 
